@@ -1,0 +1,21 @@
+[package]
+authors    = ["Rodrigo Sanabria <rodrigosanabria22@gmail.com>"]
+edition    = "2018"
+keywords   = ["dynamic", "ddns", "dns", "vercel"]
+license    = "MIT"
+name       = "vercel-ddns"
+readme     = "README.md"
+repository = "https://github.com/krosf/vercel-ddns"
+version    = "0.1.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+eyre       = "0.6.0"
+futures    = "0.3.5"
+public-ip  = { version = "0.1.0", features = ["dns-resolver"] }
+serde      = { version = "1.0.114", features = ["derive"] }
+serde_json = "1.0.56"
+structopt  = "0.3.15"
+thiserror  = "1.0.20"
+ureq       = { version = "1.3.0", features = ["tls"] }
