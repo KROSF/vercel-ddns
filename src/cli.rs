@@ -1,5 +1,6 @@
 use eyre::{eyre, Result};
 use futures::executor;
+use log::{error, info};
 use public_ip::{dns, BoxToResolver, ToResolver};
 use structopt::clap::{arg_enum, AppSettings};
 use structopt::StructOpt;
@@ -56,7 +57,14 @@ pub struct Args {
 }
 
 pub fn run(args: Args) -> Result<()> {
-    let ip = get_public_ip(&args.ip_type)?;
+    let ip = match get_public_ip(&args.ip_type) {
+        Ok(ip) => ip,
+        Err(e) => {
+            error!("Unable to get public ip. {}", e.to_string());
+            return Ok(());
+        }
+    };
+
     let rec = Record::new(
         args.subdomain,
         ip,
@@ -66,5 +74,15 @@ pub fn run(args: Args) -> Result<()> {
         },
         args.ttl,
     );
-    add_dns_record(&args.domain, &args.token, rec)
+
+    match add_dns_record(&args.domain, &args.token, rec) {
+        Ok(_) => {
+            info!("Record added / updated sucessfully");
+            return Ok(());
+        }
+        Err(e) => {
+            error!("Unable to add / update the record. {}", e.to_string());
+            return Ok(());
+        }
+    }
 }
