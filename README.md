@@ -30,9 +30,12 @@ OPTIONS:
 
 ```sh
 docker run -d \
+    -e VERCEL_TOKEN=<YOUR_TOKEN> \
     -e VDDNS_DOMAIN=<example.com> \
     -e VDDNS_SUBDOMAIN=<sample> \
-    -e VERCEL_TOKEN=<YOUR_TOKEN> \
+    -e VDDNS_TTL=3600 `#optional` \
+    -e VDDNS_IP_TYPE=ipv4 `#optional` \
+    -e CRON_SCHEDULE="*/15 * * * *" `#optional` \
     krosf/vercel-ddns:cronjob
 ```
 
@@ -45,9 +48,12 @@ services:
         image: krosf/vercel-ddns:cronjob
         restart: unless-stopped
         environment:
+            - VERCEL_TOKEN=<YOUR_TOKEN>
             - VDDNS_DOMAIN=<example.com>
             - VDDNS_SUBDOMAIN=<sample>
-            - VERCEL_TOKEN=<YOUR_TOKEN>
+            - VDDNS_TTL=3600 #optional
+            - VDDNS_IP_TYPE=ipv4 #optional
+            - CRON_SCHEDULE="*/15 * * * *" #optional
 ```
 
 ## Related
