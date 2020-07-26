@@ -30,22 +30,24 @@ OPTIONS:
 
 ```sh
 docker run -d \
-    -e VDDNS_DOMAIN=example.com \
-    -e VDDNS_SUBDOMAIN=sample \
+    -e VDDNS_DOMAIN=<example.com> \
+    -e VDDNS_SUBDOMAIN=<sample> \
     -e VERCEL_TOKEN=<YOUR_TOKEN> \
     krosf/vercel-ddns:cronjob
 ```
 
 ### docker-compose
 
-```sh
-ddns:
-    image: krosf/vercel-ddns:cronjob
-    restart: unless-stopped
-    environment:
-      - VDDNS_DOMAIN=example.com
-      - VDDNS_SUBDOMAIN=sample
-      - VERCEL_TOKEN=<YOUR_TOKEN>
+```yml
+version: "3.7"
+services:
+    ddns:
+        image: krosf/vercel-ddns:cronjob
+        restart: unless-stopped
+        environment:
+            - VDDNS_DOMAIN=<example.com>
+            - VDDNS_SUBDOMAIN=<sample>
+            - VERCEL_TOKEN=<YOUR_TOKEN>
 ```
 
 ## Related
