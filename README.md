@@ -2,15 +2,9 @@
 
 netlify-ddns is a simple command line tool for creating a DNS record for Vercel's Managed DNS service.
 
-## Installation
-
-Install using [cargo][cargo]:
-
-```
-cargo install netlify-ddns
-```
-
 ## Usage
+
+### cli
 
 ```sh
 vercel-ddns 0.1.0
@@ -30,6 +24,28 @@ OPTIONS:
     -s, --subdomain <subdomain>     [env: VDDNS_SUBDOMAIN=]
     -t, --token <token>             [env: VERCEL_TOKEN=]
         --ttl <ttl>                 [env: VDDNS_TTL=]  [default: 3600]
+```
+
+### docker
+
+```sh
+docker run -d \
+    -e VDDNS_DOMAIN=example.com \
+    -e VDDNS_SUBDOMAIN=sample \
+    -e VERCEL_TOKEN=<YOUR_TOKEN> \
+    krosf/vercel-ddns:cronjob
+```
+
+### docker-compose
+
+```sh
+ddns:
+    image: krosf/vercel-ddns:cronjob
+    restart: unless-stopped
+    environment:
+      - VDDNS_DOMAIN=example.com
+      - VDDNS_SUBDOMAIN=sample
+      - VERCEL_TOKEN=<YOUR_TOKEN>
 ```
 
 ## Related
