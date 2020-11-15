@@ -1,6 +1,6 @@
 # vercel-ddns
 
-netlify-ddns is a simple command line tool for creating a DNS record for Vercel's Managed DNS service.
+vercel-ddns is a simple command line tool for creating a DNS record for Vercel's Managed DNS service.
 
 ## Usage
 
